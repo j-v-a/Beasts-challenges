@@ -1,0 +1,28 @@
+<script src="simpletest.js"></script>
+<script src="librarySystem.js"></script>
+<script>
+    tests({
+        'It should return the library object.': function () {
+            librarySystem('sandwichLibrary', function () {
+                var breads = {
+                    wheat: 'The healthy option',
+                    white: 'The unhealthy option'
+                };
+
+                var fillings = {
+                    turkey: 'For boring sandwiches',
+                    cheese: 'For the vegetarians'
+                };
+
+                var sandwichLibrary = {
+                    breads: breads,
+                    fillings: fillings
+                };
+
+                return sandwichLibrary;
+            });
+            var sandwichTest = librarySystem('sandwichLibrary');
+            eq(sandwichTest.breads.wheat, 'The healthy option');
+        }
+    });
+</script>
