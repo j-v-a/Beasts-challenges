@@ -1,5 +1,5 @@
 <script src="simpletest.js"></script>
-<script src="librarySystem.js"></script>
+<script src="../lib/librarySystem.js"></script>
 <script>
   tests({
     'It should run without a dependency': function () {
@@ -56,6 +56,28 @@
 
       var multipleUnorderedDependingApps = librarySystem('workBlurb2');
       eq(multipleUnorderedDependingApps, 'Gordon works at Watch and Code');
+    },
+    'It should run the callback function for each library only once': function () {
+
+      var runnerCounter = 0;
+      var multipleRunnerCounter = 0;
+
+      librarySystem('runner', [], function () {
+        runnerCounter++;
+        return 'run'
+      });
+
+      librarySystem('multipleRunner1', ['runner'], function (runner) {
+        multipleRunnerCounter++;
+        return runner + runner + runner;
+      });
+
+      librarySystem('multipleRunner1');
+      librarySystem('multipleRunner1');
+      librarySystem('runner');
+
+      eq(runnerCounter, 1);
+      eq(multipleRunnerCounter, 1);
     }
   });
 </script>
