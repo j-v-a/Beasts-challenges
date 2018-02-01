@@ -1,110 +1,110 @@
 <script src="simpletest.js"></script>
 <script src="originalLibrarySystem.js"></script>
 <script>
-	tests({
-		// Implementation where access to library is always via librarySystem
-		'It should return the library object when librarySystem("libraryName") is used.': function () {
-			librarySystem('sandwichLibrary', function () {
-				var breads = {
-					wheat: 'The healthy option',
-					white: 'The unhealthy option'
-				};
+  tests({
+    // Implementation where access to library is always via librarySystem
+    'It should return the library object when librarySystem("libraryName") is used.': function () {
+      librarySystem('sandwichLibrary', function () {
+        var breads = {
+          wheat: 'The healthy option',
+          white: 'The unhealthy option'
+        };
 
-				var fillings = {
-					turkey: 'For boring sandwiches',
-					cheese: 'For the vegetarians'
-				};
+        var fillings = {
+          turkey: 'For boring sandwiches',
+          cheese: 'For the vegetarians'
+        };
 
-				var sandwichLibrary = {
-					breads: breads,
-					fillings: fillings
-				};
+        var sandwichLibrary = {
+          breads: breads,
+          fillings: fillings
+        };
 
-				return sandwichLibrary;
-			});
-			var sandwichTest = librarySystem('sandwichLibrary');
-			eq(sandwichTest.breads.wheat, 'The healthy option');
-		},
-		// implementation which takes into account already existing libraries
-		// Case 1:
-		'It should set the library to window when librarySystem doesn\'t exists.': function () {
+        return sandwichLibrary;
+      });
+      var sandwichTest = librarySystem('sandwichLibrary');
+      eq(sandwichTest.breads.wheat, 'The healthy option');
+    },
+    // implementation which takes into account already existing libraries
+    // Case 1:
+    'It should set the library to window when librarySystem doesn\'t exists.': function () {
 
-			window.librarySystem = undefined;
+      window.librarySystem = undefined;
 
-			var sandwichTest = (function () {
-				var breads = {
-					wheat: 'The healthy option',
-					white: 'The unhealthy option'
-				};
+      var sandwichTest = (function () {
+        var breads = {
+          wheat: 'The healthy option',
+          white: 'The unhealthy option'
+        };
 
-				var fillings = {
-					turkey: 'For boring sandwiches',
-					cheese: 'For the vegetarians'
-				};
+        var fillings = {
+          turkey: 'For boring sandwiches',
+          cheese: 'For the vegetarians'
+        };
 
-				var sandwichLibrary = {
-					breads: breads,
-					fillings: fillings
-				};
+        var sandwichLibrary = {
+          breads: breads,
+          fillings: fillings
+        };
 
-				if (typeof librarySystem !== 'undefined') {
-					// Handle librarySystem case.
-					librarySystem('sandwichLibrary', function () {
-						return sandwichLibrary;
-					});
-				} else {
-					// Handle window case.
-					window.sandwichLibrary = sandwichLibrary;
-				}
-			})();
+        if (typeof librarySystem !== 'undefined') {
+          // Handle librarySystem case.
+          librarySystem('sandwichLibrary', function () {
+            return sandwichLibrary;
+          });
+        } else {
+          // Handle window case.
+          window.sandwichLibrary = sandwichLibrary;
+        }
+      })();
 
-			eq(typeof (window.sandwichLibrary), 'object');
-		},
-		// Case 2:
-		'It should return the library object when librarySystem does exists.': function () {
-			// reload librarySystem
-			(function () {
-				var libraryStorage = {};
+      eq(typeof (window.sandwichLibrary), 'object');
+    },
+    // Case 2:
+    'It should return the library object when librarySystem does exists.': function () {
+      // reload librarySystem
+      (function () {
+        var libraryStorage = {};
 
-				function librarySystem(libraryName, callback) {
-					if (arguments.length > 1) {
-						libraryStorage[libraryName] = callback();
-					} else {
-						return libraryStorage[libraryName];
-					}
-				}
+        function librarySystem(libraryName, callback) {
+          if (arguments.length > 1) {
+            libraryStorage[libraryName] = callback();
+          } else {
+            return libraryStorage[libraryName];
+          }
+        }
 
-				window.librarySystem = librarySystem;
-			})();
+        window.librarySystem = librarySystem;
+      })();
 
-			(function () {
-				var breads = {
-					wheat: 'The healthy option',
-					white: 'The unhealthy option'
-				};
+      (function () {
+        var breads = {
+          wheat: 'The healthy option',
+          white: 'The unhealthy option'
+        };
 
-				var fillings = {
-					turkey: 'For boring sandwiches',
-					cheese: 'For the vegetarians'
-				};
+        var fillings = {
+          turkey: 'For boring sandwiches',
+          cheese: 'For the vegetarians'
+        };
 
-				var sandwichLibrary = {
-					breads: breads,
-					fillings: fillings
-				};
+        var sandwichLibrary = {
+          breads: breads,
+          fillings: fillings
+        };
 
-				if (typeof librarySystem !== 'undefined') {
-					// Handle librarySystem case.
-					librarySystem('sandwichLibrary', function () {
-						return sandwichLibrary;
-					});
-				} else {
-					// Handle window case.
-					window.sandwichLibrary = sandwichLibrary;
-				}
-			})();
+        if (typeof librarySystem !== 'undefined') {
+          // Handle librarySystem case.
+          librarySystem('sandwichLibrary', function () {
+            return sandwichLibrary;
+          });
+        } else {
+          // Handle window case.
+          window.sandwichLibrary = sandwichLibrary;
+        }
+      })();
 
-			eq(typeof (librarySystem('sandwichLibrary')), 'object');
-		}
-	});
+      eq(typeof (librarySystem('sandwichLibrary')), 'object');
+    }
+  });
 </script>
