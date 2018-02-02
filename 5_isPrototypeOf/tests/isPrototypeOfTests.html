@@ -1,0 +1,34 @@
+<script src="simpletest.js"></script>
+<script src="../myIsPrototypeOf.js"></script>
+<script>
+
+  // Setup
+  var canine = {
+    bark: function () {
+      console.log('bark');
+    }
+  };
+
+  var dog = Object.create(canine);
+  dog.fetch = function () {
+    console.log('fetch');
+  };
+
+  var myDog = Object.create(dog);
+  var empty = Object.create(null);
+
+  tests({
+    'It should check if a specified object is the prototype of another specified object': function () {
+      eq(dog.isPrototypeOf(myDog), myIsPrototypeOf(dog, myDog));
+    },
+    'It should check if a specified object is not the prototype of another specified object': function () {
+      eq(dog.isPrototypeOf(empty), myIsPrototypeOf(dog, empty));
+    },
+    'It should check if a specified object is in the prototype chain of the native top-level Object object': function () {
+      eq(Object.prototype.isPrototypeOf(myDog), myIsPrototypeOf(Object.prototype, myDog));
+    },
+    'It should check if a specified object is in the prototype chain of another object regardless of number of links': function () {
+      eq(myIsPrototypeOf(canine, myDog), true);
+    }
+  });
+</script>
