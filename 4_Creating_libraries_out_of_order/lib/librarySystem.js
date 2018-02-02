@@ -26,16 +26,13 @@
 				dependencyReturns.push(libraryStorage[dependencies[i]]);
 			}
 			// apply all returns as arguments for the callback
-			libraryStorage[libraryName] = callback.apply(null, dependencyReturns);
+			libraryStorage[libraryName] = callback.apply(this, dependencyReturns);
 		} else {
+			var library = libraryStorage[libraryName];
 			// Check if callbacks have been set, if not try to set again
 			// TODO: try/catch?
-			if (typeof libraryStorage[libraryName] === 'object') {
-				librarySystem(
-					libraryName,
-					libraryStorage[libraryName].dependencies,
-					libraryStorage[libraryName].callback
-				);
+			if (typeof library === 'object') {
+				librarySystem(libraryName, library.dependencies, library.callback);
 			}
 
 			// Otherwise return library

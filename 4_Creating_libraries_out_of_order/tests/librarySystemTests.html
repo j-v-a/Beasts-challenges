@@ -41,7 +41,6 @@
       eq(multipleDependingApps, 'Gordon works at Watch and Code');
     },
     'It should take in multiple unordered dependencies': function () {
-      debugger;
       librarySystem('workBlurb2', ['name2', 'company2'], function (name2, company2) {
         return name2 + ' works at ' + company2;
       });
