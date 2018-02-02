@@ -18,16 +18,16 @@
   var empty = Object.create(null);
 
   tests({
-    'It should check if a specified object is the prototype of another specified object': function () {
-      eq(dog.isPrototypeOf(myDog), myIsPrototypeOf(dog, myDog));
+    'It should check if an object is the prototype of another object': function () {
+      eq(myIsPrototypeOf(dog, myDog), true);
     },
-    'It should check if a specified object is not the prototype of another specified object': function () {
-      eq(dog.isPrototypeOf(empty), myIsPrototypeOf(dog, empty));
+    'It should check if an object is not the prototype of another object': function () {
+      eq(myIsPrototypeOf(dog, empty), false);
     },
-    'It should check if a specified object is in the prototype chain of the native top-level Object object': function () {
-      eq(Object.prototype.isPrototypeOf(myDog), myIsPrototypeOf(Object.prototype, myDog));
+    'It should check if Object.prototype is a prototype': function () {
+      eq(myIsPrototypeOf(Object.prototype, myDog), true);
     },
-    'It should check if a specified object is in the prototype chain of another object regardless of number of links': function () {
+    'It should check if a specified object is in the prototype chain of another object': function () {
       eq(myIsPrototypeOf(canine, myDog), true);
     }
   });
