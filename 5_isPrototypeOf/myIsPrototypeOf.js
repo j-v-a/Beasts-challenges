@@ -16,16 +16,14 @@ function myIsPrototypeOf(prototypeObj, object) {
 	// exclude null
 	if (objectPrototype === null) {
 		return false;
-		// Check if prototypeObj is the direct prototype of object
-	} else if (prototypeObj === objectPrototype) {
-		return true;
-		// Check if Object.prototype is the prototype of object
-	} else if (Object.prototype === objectPrototype) {
+		// Check if prototypeObj is the direct prototype of object or Object.prototype is a prototype of object
+	} else if (
+		prototypeObj === objectPrototype ||
+		Object.prototype === objectPrototype
+	) {
 		return true;
 		// step up the prototype chain
 	} else {
-		myIsPrototypeOf(prototypeObj, objectPrototype);
+		return myIsPrototypeOf(prototypeObj, objectPrototype);
 	}
-	// no prototype found
-	return false;
 }
